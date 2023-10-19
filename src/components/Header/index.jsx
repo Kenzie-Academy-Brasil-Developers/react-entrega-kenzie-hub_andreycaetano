@@ -1,18 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import styles from "./styles.scss"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+import { LoginContext } from "../../providers/LoginContext";
 
-export const Header = ({ setUser }) => {
-    const navigate = useNavigate()
+export const Header = () => {
+    const {logout} = useContext(LoginContext)
 
-
-    const logout = () => {
-        setUser([])
-        localStorage.removeItem("@KenzieHub")
-        navigate("/")
-    }
     return (
         <header>
             <figure>

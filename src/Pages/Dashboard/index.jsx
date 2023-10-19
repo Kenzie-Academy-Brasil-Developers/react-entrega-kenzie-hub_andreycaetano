@@ -2,12 +2,12 @@ import { Header } from "../../components/Header"
 import { Infos } from "../../components/Infos"
 import styles from "./styles.scss"
 
-export const Dashboard = ({user, setUser}) => {
+export const Dashboard = () => {
     return(
         <>
-        <Header setUser={setUser}/>
+        <Header/>
         <main className="mainDashboard">
-            <Infos user={user}/>
+            <Infos/>
             <section>
                 <div>
                 <h3>Que pena! Estamos em desenvolvimento :&#8317;</h3>
