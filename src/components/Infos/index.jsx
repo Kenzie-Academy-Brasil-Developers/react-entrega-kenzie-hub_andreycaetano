@@ -4,7 +4,6 @@ import { LoginContext } from "../../providers/LoginContext"
 
 export const Infos = () => {
     const {user} = useContext(LoginContext)
-    console.log(user)
     return (
         <div className="divInfo">
             <h3>Olá, {user.name}</h3>

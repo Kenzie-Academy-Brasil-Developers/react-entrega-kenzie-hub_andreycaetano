@@ -8,7 +8,14 @@ export const LoginContext = createContext({})
 export const LoginProvider = ({children}) => {
     const navigate = useNavigate()
 
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(null)
+    const [techs, setTechs] = useState([])
+    const [createTechOpen, setCreateTechOpen] = useState(false)
+    const [editTechOpen, setEditTechOpen] = useState(false)
+    const [deleteTechOpen, setDeleteTechOpen] = useState(false)
+    const [editingTech, setEditingTech] = useState(null)
+    const [deleteTech, setDeleteTech] = useState(null)
+
 
     useEffect(() => {
         const loadUser = async () => {
@@ -20,8 +27,8 @@ export const LoginProvider = ({children}) => {
                             Authorization: `Barear ${token}`
                         }
                     })
-                    console.log(data)
                     setUser(data)
+                    setTechs(data.techs)
                     navigate("/dashboard")
                 } catch (error) {
                     console.log(error)
@@ -58,12 +65,71 @@ export const LoginProvider = ({children}) => {
 
     const logout = () => {
         setUser(null)
+        setTechs([])
         localStorage.removeItem("@KenzieHub")
         navigate("/")
     }
+    
+    const createTechForm = async (formData) => {
+        const token = localStorage.getItem("@KenzieHub")
+        try {
+            const {data} = await api.post("/users/techs", formData,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setTechs([...techs, data])
+            setCreateTechOpen(false)
+            toast.success("Tecnologia adicionada com sucesso")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const updateTech = async(formData, id) => {
+        const token = localStorage.getItem("@KenzieHub")
+       try {
+        const {data} = await api.put(`/users/techs/${id}`, formData,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const newTechList = techs.map((tech) => {
+            if(tech.id === editingTech.id){
+                return data
+            }else{
+                return tech
+            }
+        })
+        setTechs(newTechList)
+        setEditTechOpen(false)
+        setEditingTech(null)    
+       } catch (error) {
+        console.log(error)
+       }
+    }
+
+    const deleteTechnologi = async (technologi) => {
+        try {
+            const token = localStorage.getItem("@KenzieHub")
+            await api.delete(`/users/techs/${technologi.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            const newTechList = techs.filter((tech) => tech.id !== technologi.id)
+            setTechs(newTechList)
+            toast.success(`${technologi.title} deletado com sucesso`)
+            setDeleteTechOpen(false)
+            setDeleteTech(null)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return(
-        <LoginContext.Provider value={{user, setUser, requestLogin, userRegister, logout}}>
+        <LoginContext.Provider value={{user, setUser, requestLogin, userRegister, logout, createTechOpen, setCreateTechOpen, editTechOpen, setEditTechOpen, techs, setTechs, createTechForm, editingTech, setEditingTech, updateTech, deleteTechOpen, setDeleteTechOpen, setDeleteTech, deleteTech, deleteTechnologi}}>
             {children}
         </LoginContext.Provider>
     )
