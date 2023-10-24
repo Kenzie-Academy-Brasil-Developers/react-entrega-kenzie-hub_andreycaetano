@@ -23,7 +23,7 @@ export const LoginForm = () => {
                 <h3>Login</h3>
                 <Input id="email" label="Email" placeholder="Digite aqui seu email" {...register("email")}/>
                 {errors.email ? <p>{errors.email.message}</p> : null}
-                <Input id="password" label="Senha" placeholder="Digite aqui sua senha" {...register("password")}/>
+                <Input type="password" id="password" label="Senha" placeholder="Digite aqui sua senha" {...register("password")}/>
                 {errors.password ? <p>{errors.password.message}</p> : null}
                 <button type="submit" className="buttonLogin">Entrar</button>
                 <span>Ainda não possui uma conta?</span>

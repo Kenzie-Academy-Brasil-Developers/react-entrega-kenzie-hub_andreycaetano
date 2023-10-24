@@ -4,14 +4,16 @@ import { useContext } from "react";
 import { LoginContext } from "../../providers/LoginContext";
 
 export const Header = () => {
-    const {logout} = useContext(LoginContext)
+    const { logout } = useContext(LoginContext)
 
     return (
         <header>
-            <figure>
-                <img src={logo} alt="KenzieHub" />
-            </figure>
-            <button onClick={() => logout()}>Sair</button>
+            <div>
+                <figure>
+                    <img src={logo} alt="KenzieHub" />
+                </figure>
+                <button onClick={() => logout()}>Sair</button>
+            </div>
         </header>
     )
 }

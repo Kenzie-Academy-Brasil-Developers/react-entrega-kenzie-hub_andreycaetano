@@ -25,9 +25,9 @@ export const RegisterForm = () => {
             {errors.name ? <p>{errors.name.message}</p> : null}
             <Input id="email" label="Email" placeholder="Digite aqui seu email" {...register("email")}/>
             {errors.email ? <p>{errors.email.message}</p> : null}
-            <Input id="password" label="Senha" placeholder="Digite aqui sua senha" {...register("password")}/>
+            <Input type="password" id="password" label="Senha" placeholder="Digite aqui sua senha" {...register("password")}/>
             {errors.password ? <p>{errors.password.message}</p> : null}
-            <Input id="confirmPassword" label="Confirmar Senha" placeholder="Digite novamente sua senha" {...register("confirmPassword")}/>
+            <Input type="password" id="confirmPassword" label="Confirmar Senha" placeholder="Digite novamente sua senha" {...register("confirmPassword")}/>
             {errors.confirmPassword ? <p>{errors.confirmPassword.message}</p> : null}
             <Input id="bio" label="Bio" placeholder="Fale sobre você" {...register("bio")}/>
             {errors.bio ? <p>{errors.bio.message}</p> : null}
